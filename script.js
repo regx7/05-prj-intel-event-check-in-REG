@@ -77,6 +77,36 @@ checkInForm.addEventListener("submit", function (event) {
   const progressPercent = (totalCount / attendanceGoal) * 100;
   progressBar.style.width = `${progressPercent}%`;
 
+  // ... this is the line before it
+  progressBar.style.width = `${progressPercent}%`;
+
+  // --- LEVELUP: CELEBRATION FEATURE ---
+  if (totalCount === attendanceGoal) {
+    // If we hit the goal, find the winning team
+    let winningTeam = "Team Water Wise";
+    let maxCount = waterCount;
+
+    if (zeroCount > maxCount) {
+      maxCount = zeroCount;
+      winningTeam = "Team Net Zero";
+    }
+
+    if (powerCount > maxCount) {
+      maxCount = powerCount;
+      winningTeam = "Team Renewables";
+    }
+
+    // Show a celebration alert!
+    // We use \n to create a line break in the alert.
+    alert(
+      `🎉 GOAL REACHED! 🎉\n\nCongratulations, ${winningTeam}, you had the highest turnout with ${maxCount} members!`
+    );
+  }
+
+  // --- FIX 1: Moved Welcome Message DOWN ---
+  // Show welcome message
+  // ... rest of your code ...
+
   // --- FIX 1: Moved Welcome Message DOWN ---
   // Show welcome message
   greeting.textContent = `Welcome, ${attendeeNameValue}! You've successfully joined ${teamNameText}.`;
