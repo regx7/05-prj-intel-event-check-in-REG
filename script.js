@@ -8,6 +8,7 @@ const progressBar = document.getElementById("progressBar");
 const waterCountElem = document.getElementById("waterCount");
 const zeroCountElem = document.getElementById("zeroCount");
 const powerCountElem = document.getElementById("powerCount");
+const attendeeList = document.getElementById("attendeeList");
 
 // Count variables
 let totalCount = 0;
@@ -37,6 +38,8 @@ const attendanceGoal = 50;
     // And update the progress bar
     const progressPercent = (totalCount / attendanceGoal) * 100;
     progressBar.style.width = `${progressPercent}%`;
+     // Load the saved list
+    attendeeList.innerHTML = localStorage.getItem('attendeeListHtml');
   }
 })(); // These () make the function run immediately
 
@@ -77,8 +80,6 @@ checkInForm.addEventListener("submit", function (event) {
   const progressPercent = (totalCount / attendanceGoal) * 100;
   progressBar.style.width = `${progressPercent}%`;
 
-  // ... this is the line before it
-  progressBar.style.width = `${progressPercent}%`;
 
   // --- LEVELUP: CELEBRATION FEATURE ---
   if (totalCount === attendanceGoal) {
@@ -105,13 +106,14 @@ checkInForm.addEventListener("submit", function (event) {
 
   // --- FIX 1: Moved Welcome Message DOWN ---
   // Show welcome message
-  // ... rest of your code ...
-
-  // --- FIX 1: Moved Welcome Message DOWN ---
-  // Show welcome message
   greeting.textContent = `Welcome, ${attendeeNameValue}! You've successfully joined ${teamNameText}.`;
   greeting.classList.add("success-message");
   greeting.style.display = "block";
+
+  // --- LEVELUP: ADD TO ATTENDEE LIST ---
+  const newLi = document.createElement("li");
+  newLi.textContent = `${attendeeNameValue} - ${teamNameText}`;
+  attendeeList.appendChild(newLi);
 
   // Reset the form for the next attendee
   checkInForm.reset();
@@ -122,4 +124,5 @@ checkInForm.addEventListener("submit", function (event) {
   localStorage.setItem("waterCount", waterCount);
   localStorage.setItem("zeroCount", zeroCount);
   localStorage.setItem("powerCount", powerCount);
+  localStorage.setItem('attendeeListHtml', attendeeList.innerHTML);
 });
